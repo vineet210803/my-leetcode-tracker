@@ -1,28 +1,25 @@
 class Solution {
 public:
-    void sol(vector<int>& temp, vector<int>& v, vector<vector<int>>& ans,unordered_set<int>& st, int n ){
-        if(temp.size()==n){
-            ans.push_back(temp);
+
+    void sol(vector<int>& v, vector<vector<int>>& ans, int l, int n){
+        if(l==n){
+            ans.push_back(v);
             return;
         }
-        for(int i=0; i<n; i++){
-            if(st.find(v[i])==st.end()){
-                temp.push_back(v[i]);
-                st.insert(v[i]);
 
-                sol(temp, v, ans, st, n);
-                temp.pop_back();
-                st.erase(v[i]);
-            }
+        for(int i=l; i<n; i++){
+            swap(v[l], v[i]);
+            sol(v, ans, l+1, n);
+            swap(v[l], v[i]);
         }
+
     }
 
-    vector<vector<int>> permute(vector<int>& v) {
-        vector<vector<int>> ans;
-        int n=v.size();
-        unordered_set<int>st;
-        vector<int>temp;
-        sol(temp, v, ans, st, n);
-        return ans;  
+        int n;
+    vector<vector<int>> permute(vector<int>& nums) {
+        vector<vector<int>>ans;
+        n=nums.size();
+        sol(nums, ans, 0, n);
+        return ans;
     }
 };
