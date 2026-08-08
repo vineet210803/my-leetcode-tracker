@@ -1,41 +1,47 @@
-				// 😉😉😉😉Please upvote if it helps 😉😉😉😉
 class Solution {
 public:
     vector<vector<int>> generateMatrix(int n) {
-        int r1 = 0, r2 = n-1;
-        int c1 = 0, c2 = n-1;
-        int val = 0;
-		
-		// result matrix
-        vector<vector<int>> v(n, vector<int> (n));
-        while(r1 <= r2 && c1 <= c2)
-        {
-            // left to right (row will be fixed)
-            for(int i = c1; i <= c2; ++i)
-                v[r1][i] = ++val;
-				
-				// move down(col will be fixed)
-            for(int i = r1+1; i <= r2; ++i)
-                v[i][c2] = ++val;
-				
-            // move right to left
-            // move  up
-            if(r1 < r2 && c1 < c2)
-            {
-                // move right to left (row will be fixed)
-                for(int i = c2-1; i>c1; --i)
-                    v[r2][i] = ++val;
-					
-					// move up (col will be fixed)
-					for(int i = r2; i>r1; --i) 
-                    v[i][c1] = ++val;
+        vector<vector<int>>ans(n, vector<int>(n,0));
+        // vector<int>ans;
+        int left=0;
+        int right=n-1;
+        int top=0;
+        int bottom=n-1;
+        int num=1;
+       while(top<=bottom && left<=right){
+            
+            if(left<=right && top<=bottom){
+                for(int i=left; i<=right; i++){
+                    ans[top][i]=num;
+                    num++;
+                }
+                top++;
             }
-            ++r1;
-            --r2;
-            ++c1;
-            --c2;
+            if(left<=right && top<=bottom){
+                for(int j=top; j<=bottom; j++){
+                    ans[j][right]=num;
+                    num++;
+                }
+                right--;
+            }
+            if(left<=right && top<=bottom){
+                for(int k=right; k>=left; k--){
+                    ans[bottom][k]=num;
+                     num++;
+                }
+                bottom--;
+            }
+            if(left<=right && top<=bottom){
+                for(int l=bottom; l>=top; l--){
+                    ans[l][left]=num;
+                    num++;
+                }
+                left++;
+            }
         }
-        return v;
+        // for(auto it: ans){
+        //     cout<<it<<" ";
+        // }
+        return ans;
     }
-	// for github repository link go to my profile.
 };
