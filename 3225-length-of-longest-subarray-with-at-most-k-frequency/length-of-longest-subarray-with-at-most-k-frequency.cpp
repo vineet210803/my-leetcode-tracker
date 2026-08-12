@@ -11,6 +11,7 @@ public:
             while(mpp[v[j]]>k){
                 mpp[v[i]]--;
                 i++;
+                continue;
             }
                 int len=j-i+1;
                 ans=max(ans,len);
