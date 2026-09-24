@@ -25,3 +25,6 @@ public:
         return ans;
     }
 };
+
+// i have used 2 extra array left and right (not required)
+// try solving using only 1 array that is ans[] using this same approach;
