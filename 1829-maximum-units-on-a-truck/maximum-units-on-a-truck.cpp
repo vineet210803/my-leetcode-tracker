@@ -1,20 +1,29 @@
 class Solution {
 public:
-    int maximumUnits(vector<vector<int>>& b, int s) {
-        int ans=0;
-        sort(b.begin(), b.end(),[]( const vector<int>&a, const vector<int>&b){
-            return a[1]>b[1];
-        });
-        int i=0;
-        while(s>0 && i<b.size()){
-            if(b[i][0]<=s){
-                ans+=b[i][0]*b[i][1];
-            }else{
-                ans+=s*(b[i][1]);
+
+    static bool compare(vector<int>& a, vector<int>& b) {
+        return a[1] > b[1];
+    }
+
+    int maximumUnits(vector<vector<int>>& box, int truckSize) {
+        int ans = 0;
+        int curr = 0;
+
+        sort(box.begin(), box.end(), compare);
+
+        for(int i = 0; i<box.size(); i++){
+            if(curr+box[i][0] <= truckSize){
+                curr+=box[i][0];
+                ans+=(box[i][0] * box[i][1]);
             }
-                s-=b[i][0];
-                i++;
+            else{
+                int remaining = truckSize - curr;
+                ans +=  (remaining * box[i][1]);
+                break;
+            }
         }
-    return ans;
+        return ans;
+
+
     }
 };
